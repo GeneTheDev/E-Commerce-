@@ -5,16 +5,17 @@ CREATE DATABASE webstore_db;
 \c webstore_db
 
 --Customers----
-INSERT INTO customers (email, name, password, address)
+INSERT INTO customers (username, email, name, password_hash, is_active, address)
 VALUES
-     ('owens.eugene@yahoo.com', 'Eugene Owens', 1234, '458 cocanut isle dr'),
-     ('owens.sandy@yahoo.com', 'Sandy Owens', 1234, '458 cocanut isle dr'),
-     ('Henry.Devyon@yahoo.com', 'Devyon Henry', 1234, '458 cocanut isle dr'),
-     ('Spencer.shavonne@yahoo.com', 'Shavonne Spencer', 1234, '458 cocanut isle dr'),
-     ('owens.nia@yahoo.com', 'Nia Owens', 1234, '458 cocanut isle dr'),
-     ('john.doe@example.com', 'John Doe', 1234, '123 Main St');
+     ('Gene21', 'owens.eugene@yahoo.com', 'Eugene Owens', 1234, false, '458 cocanut isle dr'),
+     ('sandy21', 'owens.sandy@yahoo.com', 'Sandy Owens', 1234, false, '458 cocanut isle dr'),
+     ('devyon21', 'Henry.Devyon@yahoo.com', 'Devyon Henry', 1234, false, '458 cocanut isle dr'),
+     ('von21', 'Spencer.shavonne@yahoo.com', 'Shavonne Spencer', 1234, false, '458 cocanut isle dr'),
+     ('nia21', 'owens.nia@yahoo.com', 'Nia Owens', 1234, false, '458 cocanut isle dr'),
+     ('john21', 'john.doe@example.com', 'John Doe', 1234, false, '123 Main St');
 
-     
+
+      
 -- Products
 INSERT INTO products (name, description, price, image, availability)
 VALUES

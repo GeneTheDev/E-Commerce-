@@ -32,11 +32,17 @@
                 <ul id="MenuItems">
                     <li><a href="/">Home</a></li>
                     <li><a href="allproducts">Products</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="account.html">Account</a></li>
-                    <li><a href="account">Login</a></li>
-                    <li><a href="register">Register</a></li>
+                    <li><a href="about">About</a></li>
+                    <li><a href="contact">Contact</a></li>
+                    {% if 'user_id' in session %}                        
+                        <li><a href="account">Account</a></li>
+                        <li><a href="logout">Logout</a></li>
+                        <li><p>Welcome, {{current_user.username}} </p></li> 
+                    {% else %}
+                        <li><a href="login">Login</a></li>
+                        <li><a href="register">Register</a></li>
+                        <li><p>Please log in to access this page.</p></li>
+                    {% endif %}
                 </ul>
             </nav>
             <img src="static/images/cart.png" width="30px" height="30px">
@@ -46,7 +52,7 @@
             <div class="col-2">
                 <h1>Give Your Workout <br> A New Style!</h1>
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aliquam quis a accusantium, <br> voluptatum ut doloremque dolores reiciendis ab dolorem quibusdam ad consectetur, <br> praesentium eaque architecto quasi error voluptate odit dignissimos?</p>
-                <a href="" class="btn">Explore Now &#8594; </a>
+                <a href="/templates/allproducts.html" class="btn">Explore Now &#8594; </a>
             </div>
             <div class="col-2">
                 <img src="https://burst.shopifycdn.com/photos/fun-swimming-products.jpg?width=925&format=pjpg&exif=1&iptc=1">

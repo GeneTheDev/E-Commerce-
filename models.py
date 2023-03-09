@@ -1,14 +1,19 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt
+from flask_bcrypt import Bcrypt, generate_password_hash, check_password_hash
+from flask_login import UserMixin, LoginManager
 
 
 app = Flask(__name__)
-bcrypt = Bcrypt(app)
+bcrypt = Bcrypt()
 db = SQLAlchemy()
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+pw_hash = generate_password_hash('hunter2', 10)
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     """Site user"""
 
     __tablename__ = "users"
@@ -17,12 +22,24 @@ class User(db.Model):
                    primary_key=True,
                    autoincrement=True)
 
-    username = db.Column(db.Text,
-                         nullable=False,
+    username = db.Column(db.String(64),
+                         index=True,
                          unique=True)
 
-    password = db.Column(db.Text,
-                         nullable=False)
+    password_hash = db.Column(db.String(128))
+
+    def __repr__(self):
+        return 'User {}'.format(self.username)
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+    @login_manager.user_loader
+    def load_user(id):
+        return User.query.get(int(id))
 
 
 class Product(db.Model):
@@ -75,37 +92,64 @@ class Customer(db.Model):
                       unique=True,
                       nullable=False)
 
-    name = db.Column(db.String, nullable=False)
+    name = db.Column(db.String,
+                     nullable=False)
 
-    password = db.Column(db.String, nullable=False)
+    password_hash = db.Column(db.String(128),
+                              nullable=False)
 
-    address = db.Column(db.String, nullable=False)
+    is_active = db.Column(db.Boolean,
+                          default=True,
+                          nullable=False)
+
+    address = db.Column(db.String,
+                        nullable=False)
 
     orders = db.relationship("Order")
 
     addresses = db.relationship("Address")
 
+    def __init__(self, username, email, name, password_hash, address):
+        self.username = username
+        self.email = email
+        self.name = name
+        self.set_password(password_hash)
+        self.address = address
+
+    def set_password(self, password):
+        self.password_hash = bcrypt.generate_password_hash(
+            password).decode('utf-8')
+
+    def get_id(self):
+        return str(self.id)
+
     @classmethod
-    def register(cls, username, pwd):
+    def register(cls, username, pwd, email, name, address):
         """Register user w/hashed password & return user"""
+        user = cls(username=username, email=email, name=name, address=address)
 
-        hashed = bcrypt.generate_password_hash(pwd)
-        hashed_utf8 = hashed.decode("utf8")
+        hashed = bcrypt.hashpw(pwd.encode('utf-8'), bcrypt.gensalt())
+        hashed_utf8 = hashed.decode('utf-8')
 
-        # return instance of user w/username and hashed pwd
-        return cls(username=username, password=hashed_utf8)
+        user.password = hashed_utf8
 
-    def authenticate(cls, username, pwd):
+        db.session.add(user)
+        db.session.commit()
+
+        return user
+
+    @classmethod
+    def authenticate(cls, username, password):
         """Validate that user exists and password is correct
 
         Return user if valid; else return False
         """
 
-        u = Customer.query.filter_by(username=username).first()
+        user = Customer.query.filter_by(username=username).first()
 
-        if u and bcrypt.check_password_hash(u.password, pwd):
+        if user and bcrypt.check_password_hash(user.password_hash, password):
             # return user instance
-            return u
+            return user
         else:
             return False
 
