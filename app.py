@@ -1,10 +1,10 @@
 from flask import Flask, request, redirect, render_template, url_for, session, flash
 from flask_session import Session
-from models import db, connect_db, Product, Order, Customer, Category, ProductCategory, OrderProduct, Address, Payment, User
+from models import db, connect_db, Product, Order, Customer, Category, ProductCategory, OrderProduct, Address, Payment, User, Cart, CartItem
 from flask_debugtoolbar import DebugToolbarExtension
-from forms import RegisterForm, LoginForm
+from forms import RegisterForm, LoginForm, UpdateAccountForm
 from email_validator import validate_email, EmailNotValidError
-from flask_login import LoginManager, login_user, logout_user, current_user
+from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 
 
 app = Flask(__name__, template_folder='templates', static_url_path='/static')
@@ -107,9 +107,6 @@ def login():
 
     form = LoginForm()
 
-    if current_user.is_authenticated:
-        return redirect(url_for('index'))
-
     if form.validate_on_submit():
         name = form.username.data
         pwd = form.password.data
@@ -126,13 +123,82 @@ def login():
             # re-render the login page with an error
             form.username.errors = ["Bad name/password"]
 
-    return render_template("login.html", title='Sign In', form=form, current_user=current_user)
+    return render_template("login.html", title='Sign In', form=form)
 
 
 @app.route('/logout')
 def logout():
-    logout_user()
-    return redirect(url_for('index'))
+    """Logs out user and redirects to homepage"""
+    session.pop("user_id")
+    return redirect("/")
+
+
+@app.route('/update_account', methods=['POST'])
+@login_required
+def update_account():
+    form = UpdateAccountForm()
+
+    if form.validate_on_submit():
+        current_user.email = form.email.data
+        current_user.address = form.address.data
+        db.session.commit()
+        flash('Your account has been updated!', 'success')
+        return redirect(url_for('account'))
+
+    elif request.method == 'GET':
+        form.email.data = current_user.email
+        form.address.data = current_user.address
+
+    return render_template('update_account.html', form=form)
+
+
+@app.route("/account", methods=['GET'])
+def account_page():
+    """Account page"""
+    form = UpdateAccountForm()
+    return render_template("/account.html", form=form)
+
+# Shopping cart
+
+
+@app.route('/cart')
+def shopping_cart():
+    """Display cart"""
+
+    cart = Cart.query.filter_by(customer_id=current_user.id).first()
+    if not cart:
+        flash('Youe cart is empty', 'info')
+    return render_template('cart.html')
+
+
+@app.route('/add-to-cart/<int:product_id>', methods=['POST'])
+@login_required
+def add_to_cart(product_id):
+    """Add Item to cart"""
+
+    product = Product.query.get_or_404(product_id)
+
+    cart = Cart.query.filter_by(customer_id=current_user.id).first()
+
+    if not cart:
+        cart = Cart(customer_id=current_user.id)
+        db.session.add(cart)
+
+    cart_item = CartItem.query.filter_by(
+        product_id=product.id, cart_id=cart.id).first()
+
+    if cart_item:
+        cart_item.qauntity += 1
+
+    else:
+        cart_item = CartItem(product_id=product.id, cart_id=cart.id)
+
+    db.session.add(cart_item)
+    db.session.commit()
+
+    flash(f'{product.name} added to cart!', 'success')
+
+    return redirect(url_for('product_detail', id=product_id))
 
 
 @app.route("/products")
@@ -147,10 +213,6 @@ def all_products():
     category_filter = request.args.get('category')
     price_filter = request.args.get('price')
     rating_filter = request.args.get('rating')
-    print(f"Category Filter: {category_filter}")
-    print(f"Price Filter: {price_filter}")
-    print(f"Rating Filter: {rating_filter}")
-    print(f"Request: {request}")
     return render_template('allproducts.html', products=products, category_filter=category_filter, price_filter=price_filter, rating_filter=rating_filter)
 
 
@@ -181,12 +243,6 @@ def about_page():
 def contact_page():
     """Contact page"""
     return render_template("/contact.html")
-
-
-@app.route("/account")
-def account_page():
-    """Account page"""
-    return render_template("/account.html")
 
 
 if __name__ == '__main__':

@@ -42,42 +42,6 @@ class User(UserMixin, db.Model):
         return User.query.get(int(id))
 
 
-class Product(db.Model):
-
-    __tablename__ = 'products'
-
-    id = db.Column(db.Integer,
-                   primary_key=True)
-
-    name = db.Column(db.String(50),
-                     nullable=False)
-
-    description = db.Column(db.String,
-                            nullable=False)
-
-    price = db.Column(db.Float,
-                      nullable=False)
-
-    image = db.Column(db.String,
-                      nullable=False)
-
-    availability = db.Column(db.Boolean,
-                             nullable=False,
-                             default=True)
-
-    rating = db.Column(db.Float,
-                       default=0.0)
-
-    is_featured = db.Column(db.Boolean,
-                            default=True)
-
-    categories = db.relationship("ProductCategory",
-                                 back_populates='product')
-
-    orders = db.relationship('OrderProduct',
-                             back_populates='product')
-
-
 class Customer(db.Model):
 
     __tablename__ = 'customers'
@@ -154,31 +118,78 @@ class Customer(db.Model):
             return False
 
 
-class Order(db.Model):
+class Cart(db.Model):
+    """Shopping cart"""
 
-    __tablename__ = 'orders'
+    __tablename__ = 'carts'
 
     id = db.Column(db.Integer,
-                   autoincrement=True,
                    primary_key=True)
 
     customer_id = db.Column(db.Integer,
                             db.ForeignKey('customers.id'),
                             nullable=False)
 
-    total_cost = db.Column(db.Float,
+    items = db.relationship('CartItem',
+                            backref='cart', lazy=True)
+
+
+class CartItem(db.Model):
+    """Cart Item model"""
+
+    __tablename__ = 'cart_items'
+
+    id = db.Column(db.Integer,
+                   primary_key=True)
+
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'),
                            nullable=False)
 
-    order_date = db.Column(db.String,
-                           nullable=False)
+    cart_id = db.Column(db.Integer,
+                        db.ForeignKey('carts.id'),
+                        nullable=False)
 
-    customer = db.relationship("Customer",
-                               overlaps='orders')
+    qauntity = db.Column(db.Integer,
+                         nullable=False,
+                         default=1)
 
-    order_products_backref = db.relationship("OrderProduct",
-                                             backref="order")
+    product = db.relationship('Product', backref='cart_items')
 
-    payment = db.relationship("Payment")
+
+class Product(db.Model):
+
+    __tablename__ = 'products'
+
+    id = db.Column(db.Integer,
+                   primary_key=True)
+
+    name = db.Column(db.String(50),
+                     nullable=False)
+
+    description = db.Column(db.String,
+                            nullable=False)
+
+    price = db.Column(db.Float,
+                      nullable=False)
+
+    image = db.Column(db.String,
+                      nullable=False)
+
+    availability = db.Column(db.Boolean,
+                             nullable=False,
+                             default=True)
+
+    rating = db.Column(db.Float,
+                       default=0.0)
+
+    is_featured = db.Column(db.Boolean,
+                            default=True)
+
+    categories = db.relationship("ProductCategory",
+                                 back_populates='product')
+
+    orders = db.relationship('OrderProduct',
+                             back_populates='product')
 
 
 class Category(db.Model):
@@ -212,6 +223,33 @@ class ProductCategory(db.Model):
     __table_args__ = (
         db.UniqueConstraint('product_id', 'category_id'),
     )
+
+
+class Order(db.Model):
+
+    __tablename__ = 'orders'
+
+    id = db.Column(db.Integer,
+                   autoincrement=True,
+                   primary_key=True)
+
+    customer_id = db.Column(db.Integer,
+                            db.ForeignKey('customers.id'),
+                            nullable=False)
+
+    total_cost = db.Column(db.Float,
+                           nullable=False)
+
+    order_date = db.Column(db.String,
+                           nullable=False)
+
+    customer = db.relationship("Customer",
+                               overlaps='orders')
+
+    order_products_backref = db.relationship("OrderProduct",
+                                             backref="order")
+
+    payment = db.relationship("Payment")
 
 
 class OrderProduct(db.Model):

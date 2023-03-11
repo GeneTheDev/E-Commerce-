@@ -25,8 +25,22 @@ class RegisterForm(FlaskForm):
 class LoginForm(FlaskForm):
     """Login User"""
 
-    username = StringField("Username")
+    username = StringField("Username",  validators=[validators.DataRequired()])
 
-    password = StringField("Password")
+    password = PasswordField("Password",  validators=[
+                             validators.DataRequired()])
 
     remember_me = BooleanField('Remeber Me')
+
+
+class UpdateAccountForm(FlaskForm):
+    """Update User"""
+
+    email = EmailField("Email",
+                       validators=[validators.DataRequired(), Email()])
+
+    address = StringField("Address",
+                          validators=[validators.DataRequired()])
+
+    password = PasswordField("Password",
+                             validators=[validators.DataRequired()])

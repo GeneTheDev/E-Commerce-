@@ -37,15 +37,13 @@
                     {% if 'user_id' in session %}                        
                         <li><a href="account">Account</a></li>
                         <li><a href="logout">Logout</a></li>
-                        <li><p>Welcome, {{current_user.username}} </p></li> 
                     {% else %}
                         <li><a href="login">Login</a></li>
                         <li><a href="register">Register</a></li>
-                        <li><p>Please log in to access this page.</p></li>
                     {% endif %}
                 </ul>
             </nav>
-            <img src="static/images/cart.png" width="30px" height="30px">
+            <img src="static/images/cart.png" class="cart" width="30px" height="30px">
             <img src="static/images/menu.png" class="menu-icon" onclick="menuToggle()">
         </div>
         <div class="row">

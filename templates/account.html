@@ -9,6 +9,22 @@
     <title>{% block title %}Account{% endblock %}</title>
 </head>
 <body>
-    {% block content %} {% endblock %}
+    {% block content %}
+    <form id="update-account" class="my-form"  method="POST">
+        <h2>Update Your Account</h2>
+        {{ form.hidden_tag() }}
+        {% for field in form if field.widget.input_type != 'hidden' %}
+            <p>
+                {{ field.label }}
+                {{ field }}
+
+                {% for error in field.errors %}
+                    {{error}}
+                {% endfor %}
+            </p>
+        {% endfor %}
+        <button type="submit">Update</button>
+    </form>
+    {% endblock %}
 </body>
 </html>

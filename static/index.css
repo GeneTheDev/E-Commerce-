@@ -44,6 +44,10 @@ p {
     color: #555;
 }
 
+.cart {
+    cursor: pointer;
+}
+
 .container {
     max-width: 1300px;
     margin: auto;
