@@ -1,10 +1,12 @@
-from flask import Flask, request, redirect, render_template, url_for, session, flash
+from flask import Flask, request, redirect, render_template, url_for, session, flash, abort
 from flask_session import Session
 from models import db, connect_db, Product, Order, Customer, Category, ProductCategory, OrderProduct, Address, Payment, User, Cart, CartItem
 from flask_debugtoolbar import DebugToolbarExtension
 from forms import RegisterForm, LoginForm, UpdateAccountForm
 from email_validator import validate_email, EmailNotValidError
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
+import psycopg2  # pip install psycopg2
+import psycopg2.extras
 
 
 app = Flask(__name__, template_folder='templates', static_url_path='/static')
@@ -162,43 +164,76 @@ def account_page():
 
 
 @app.route('/cart')
-def shopping_cart():
-    """Display cart"""
+def view_cart():
 
-    cart = Cart.query.filter_by(customer_id=current_user.id).first()
-    if not cart:
-        flash('Youe cart is empty', 'info')
-    return render_template('cart.html')
-
-
-@app.route('/add-to-cart/<int:product_id>', methods=['POST'])
-@login_required
-def add_to_cart(product_id):
-    """Add Item to cart"""
-
-    product = Product.query.get_or_404(product_id)
-
-    cart = Cart.query.filter_by(customer_id=current_user.id).first()
-
-    if not cart:
-        cart = Cart(customer_id=current_user.id)
-        db.session.add(cart)
-
-    cart_item = CartItem.query.filter_by(
-        product_id=product.id, cart_id=cart.id).first()
-
-    if cart_item:
-        cart_item.qauntity += 1
-
+    if current_user.is_authenticated:
+        cart = Cart.query.filter_by(customer_id=current_user.id).first()
+        if cart:
+            cart_items = CartItem.query.filter_by(cart_id=cart.id).all()
+            total_cost = sum(item.product.price *
+                             item.qauntity for item in cart_items)
+        else:
+            cart_items = []
+            total_cost = 0
     else:
-        cart_item = CartItem(product_id=product.id, cart_id=cart.id)
+        cart_items = []
+        total_cost = 0
 
-    db.session.add(cart_item)
-    db.session.commit()
+    return render_template('cart.html', cart_items=cart_items, total_cost=total_cost)
 
-    flash(f'{product.name} added to cart!', 'success')
 
-    return redirect(url_for('product_detail', id=product_id))
+# Add Items to shopping cart
+
+
+@app.route('/add_to_cart/<string:code>', methods=['POST'])
+def add_to_cart(code):
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+
+    product = Product.query.filter_by(code=code).first()
+    if product:
+        cart_item = CartItem.query.filter_by(
+            user_id=current_user.id, product_id=product.id).first()
+        if not cart_item:
+            cart_item = CartItem(user_id=current_user.id,
+                                 product_id=product.id)
+            db.session.add(cart_item)
+        else:
+            cart_item.quantity += 1
+        db.session.commit()
+        return redirect(url_for('shopping_cart'))
+    else:
+        abort(404)
+
+# Empty the entire cart
+
+
+@app.route('/empty')
+def empty_cart():
+    try:
+        session.clear()
+        return redirect(url_for('.products'))
+    except Exception as e:
+        print(e)
+
+# Delete products from cart
+
+
+@app.route('/delete/<string:code>', methods=['POST'])
+def delete_from_cart(code):
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+
+    product = Product.query.filter_by(code=code).first()
+    if product:
+        cart_item = CartItem.query.filter_by(
+            user_id=current_user.id, product_id=product.id).first()
+        if cart_item:
+            db.session.delete(cart_item)
+            db.session.commit()
+        return redirect(url_for('shopping_cart'))
+    else:
+        abort(404)
 
 
 @app.route("/products")
@@ -216,12 +251,6 @@ def all_products():
     return render_template('allproducts.html', products=products, category_filter=category_filter, price_filter=price_filter, rating_filter=rating_filter)
 
 
-# @app.route("/product/<int:id>")
-# def product():
-#     product = Product.query.filter_by(id=id).first()
-#     render_template('product.html', product=product)
-
-
 @app.route('/next')
 def next_page():
     return render_template('next.html')
@@ -230,13 +259,7 @@ def next_page():
 @app.route("/product-detail")
 def product_detail():
     """Product page"""
-    return render_template("/singleproduct.html")
-
-
-@app.route("/about")
-def about_page():
-    """About page"""
-    return render_template("/about.html")
+    return render_template("/singleproduct")
 
 
 @app.route("/contact")

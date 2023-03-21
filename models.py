@@ -100,6 +100,10 @@ class Customer(db.Model):
         db.session.add(user)
         db.session.commit()
 
+        cart = Cart(customer_id=user.id)
+        db.session.add(cart)
+        db.session.commit()
+
         return user
 
     @classmethod

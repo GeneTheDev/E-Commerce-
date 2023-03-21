@@ -32,7 +32,6 @@
                 <ul id="MenuItems">
                     <li><a href="/">Home</a></li>
                     <li><a href="allproducts">Products</a></li>
-                    <li><a href="about">About</a></li>
                     <li><a href="contact">Contact</a></li>
                     {% if 'user_id' in session %}                        
                         <li><a href="account">Account</a></li>
@@ -43,7 +42,8 @@
                     {% endif %}
                 </ul>
             </nav>
-            <img src="static/images/cart.png" class="cart" width="30px" height="30px">
+            <a href="cart"><img src="static/images/cart.png" class="cart" width="30px" height="30px"></a>
+            
             <img src="static/images/menu.png" class="menu-icon" onclick="menuToggle()">
         </div>
         <div class="row">

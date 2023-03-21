@@ -1,4 +1,14 @@
-.navbar1 {
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.navbar {
     display: flex;
     align-items: center;
     padding: 20px;
@@ -9,8 +19,6 @@
     z-index: 1;
     background: radial-gradient(#fff, #ffd6d6);
 }
-
-
 
 nav {
     flex: 1;
@@ -36,9 +44,6 @@ p {
     color: #555;
 }
 
-.container1 {
-    max-width: 1300px;
-    margin: auto;
-    padding-left: 25px;
-    padding-right: 25px;
+.cart {
+    cursor: pointer;
 }
