@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Product{% endblock %}</title>
+    {% block additional_css %}   
+    <link rel="stylesheet" href="/static/singleproduct.css">
+    <link rel="stylesheet" href="/static/index.css">
+    
+    <link rel="stylesheet" href="/static/base.css">
+    {% endblock %} 
+</head>
+<body>
+  {% block content %}
+  <div class="container">
+    <div class="grid second-nav">
+      <div class="column-xs-12">
+        <nav>
+          <ol class="breadcrumb-list">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Household Plants</a></li>
+            <li class="breadcrumb-item active">{{product.name}}</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <div class="grid product">
+      <div class="column-xs-12 column-md-7">
+        <div class="product-gallery">
+          <div class="product-image">
+            <img class="active" src="{{product.image}}">
+          </div>
+          <ul class="image-list">
+            <li class="image-item"><img src="{{product.image}}"></li>
+            <li class="image-item"><img src="{{product.image}}"></li>
+            <li class="image-item"><img src="{{product.image}}"></li>
+          </ul>
+        </div>
+      </div>
+      <div class="column-xs-12 column-md-5">
+        <h1>{{product.name}}</h1>
+        <h2>${{product.price}}</h2>
+        <div class="description">
+          <p>{{product.description}}</p>
+        </div>
+        <form action="">
+          <input type="number" value="1" min="1">
+          <button type="submit" class="add-to-cart">Add To Cart</button>
+        </form>
+      </div>
+    </div>
+    <div class="grid related-products">
+      <div class="column-xs-12">
+        <h3>You may also like</h3>
+      </div>
+      <div class="column-xs-12 column-md-4">
+        <img src="https://source.unsplash.com/miziNqvJx5M">
+        <h4>Succulent</h4>
+        <p class="price">$19.99</p>
+      </div>
+      <div class="column-xs-12 column-md-4">
+        <img src="https://source.unsplash.com/2y6s0qKdGZg">
+        <h4>Terranium</h4>
+        <p class="price">$19.99</p>
+      </div>
+      <div class="column-xs-12 column-md-4">
+        <img src="https://source.unsplash.com/6Rs76hNbIWE">
+        <h4>Cactus</h4>
+        <p class="price">$19.99</p>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+</body>
+</html>

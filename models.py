@@ -3,12 +3,10 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt, generate_password_hash, check_password_hash
 from flask_login import UserMixin, LoginManager
 
-
-app = Flask(__name__)
 bcrypt = Bcrypt()
 db = SQLAlchemy()
 login_manager = LoginManager()
-login_manager.init_app(app)
+
 
 pw_hash = generate_password_hash('hunter2', 10)
 
@@ -318,9 +316,3 @@ class Payment(db.Model):
 
     order = db.relationship("Order",
                             overlaps='payment')
-
-
-def connect_db(app):
-    """Connect to database."""
-    db.init_app(app)
-    db.app = app
