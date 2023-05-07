@@ -8,9 +8,6 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 
 
-pw_hash = generate_password_hash('hunter2', 10)
-
-
 class User(UserMixin, db.Model):
     """Site user"""
 
@@ -71,11 +68,11 @@ class Customer(db.Model):
 
     addresses = db.relationship("Address")
 
-    def __init__(self, username, email, name, password_hash, address):
+    def __init__(self, username, email, name, password, address):
         self.username = username
         self.email = email
         self.name = name
-        self.set_password(password_hash)
+        self.set_password(password)
         self.address = address
 
     def set_password(self, password):
