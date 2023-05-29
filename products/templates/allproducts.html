@@ -28,7 +28,7 @@
         <h1 style="text-align: center;">All Products</h1>
         <div class="row">
             <div class="col-md-3">
-                <form action="{{ url_for('all_products') }}" method="GET"style="display: flex;">
+                <form action="{{ url_for('products.all_products') }}" method="GET"style="display: flex;">
                     <div class="form-group" style="margin-right: 20px; width: 33%;">
                         <label for="category-filter">Category:</label>
                         <select class="form-control" id="category-filter" name="category">
@@ -73,7 +73,7 @@
           {% endfor %}
         </div>
     </div>
-    <a href="{{ url_for('next_page') }}" class="btn btn-primary">
+    <a href="{{ url_for('products.next_page') }}" class="btn btn-primary">
         Next Page <i class="fa fa-arrow-right"></i>
       </a>
       
