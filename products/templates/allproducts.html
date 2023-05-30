@@ -24,11 +24,11 @@
     
     {% block content %} 
     
-    <div class="container">            
+    <div class="container"> 
         <div class="row">
-            <div class="col-md-3">
-                <form action="{{ url_for('products.all_products') }}" method="GET"style="display: flex;">
-                    <div class="form-group" style="margin-right: 20px; width: 33%;">
+            <div class="col-md-12">
+                <form action="{{ url_for('products.all_products') }}" method="GET" class="d-flex flex-wrap">
+                    <div class="form-group col-12 col-md-3 mb-3 mb-md-0">
                         <label for="category-filter">Category:</label>
                         <select class="form-control" id="category-filter" name="category">
                             <option value="">All</option>
@@ -37,6 +37,7 @@
                             {% endfor %}
                         </select>
                     </div>
+                    <!-- Remaining form groups go here -->
                     <div class="form-group" style="margin-right: 20px; width: 33%;">
                         <label for="price-filter">Price:</label>
                         <select class="form-control" id="price-filter" name="price">
@@ -53,14 +54,15 @@
                             <option value="desc">High to low</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width: 80px;">Filter</button>
+                    <button type="submit" class="btn btn-primary col-12 col-md-auto mt-3 mt-md-0">Filter</button>
                 </form>
             </div>
         </div>
-        <div class="row row-cols-4">
-          {% for product in products %}
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+            {% for product in products %}
             <div class="col mb-3">
-              <div class="card">
+                <!-- Product card goes here -->
+                <div class="card">
                 <img src="{{ product.image }}" alt="{{ product.name }}" class="card-img-top">
                 <div class="card-body">
                   <h5 class="card-title">{{ product.name }}</h5>
@@ -69,7 +71,7 @@
                 </div>
               </div>
             </div>
-          {% endfor %}
+            {% endfor %}
         </div>
     {{pagination.info}}
     {{pagination.links}} 
