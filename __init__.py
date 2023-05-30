@@ -35,9 +35,9 @@ def create_app():
     from .cart import cart_bp
     from .home import home_bp
     from .contact import contact_bp
-    app.register_blueprint(products_bp, )
-    app.register_blueprint(cart_bp)
-    app.register_blueprint(auth_bp)
+    app.register_blueprint(products_bp, url_prefix="/")
+    app.register_blueprint(cart_bp, url_prefix="/")
+    app.register_blueprint(auth_bp, url_prefix="/")
     app.register_blueprint(home_bp, url_prefix="/")
     app.register_blueprint(contact_bp, url_prefix="/")
 
