@@ -1,11 +1,13 @@
-import sys
-from pathlib import Path  # if you haven't already done so
-file = Path(__file__).resolve()
-parent, root = file.parent, file.parents[1]
-sys.path.append(str(root))
+# from setuptools import setup, find_packages
 
-# Additionally remove the current file's directory from sys.path
-try:
-    sys.path.remove(str(parent))
-except ValueError:  # Already removed
-    pass
+# setup(
+#     name='web_store',
+#     version='0.1',
+#     packages=find_packages(),
+#     install_requires=[
+#         'Flask',
+#         'psycopg2',
+#         # other dependencies here
+#     ],
+# )
+#
