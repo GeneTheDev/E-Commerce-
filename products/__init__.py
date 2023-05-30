@@ -1,5 +1,6 @@
 from flask import Flask, Blueprint, render_template, abort, request
 from ..models import Product
+from flask_paginate import Pagination, get_page_parameter
 
 
 products_bp = Blueprint('products', __name__,
@@ -13,18 +14,28 @@ def product_page():
     return render_template("products.html")
 
 
+PER_PAGE = 8
+
+
 @products_bp.route("/allproducts")
 def all_products():
-    products = Product.query.all()
+    search = False
+    q = request.args.get('q')
+    if q:
+        search = True
+
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+    offset = (page - 1) * PER_PAGE
+    total_products = Product.query.count()
+    pagination = Pagination(page=page, total=total_products,
+                            search=search, record_name='products')
+
+    products = Product.query.order_by(
+        Product.id).offset(offset).limit(PER_PAGE).all()
     category_filter = request.args.get('category')
     price_filter = request.args.get('price')
     rating_filter = request.args.get('rating')
-    return render_template('allproducts.html', products=products, category_filter=category_filter, price_filter=price_filter, rating_filter=rating_filter)
-
-
-@products_bp.route('/next')
-def next_page():
-    return render_template('next.html')
+    return render_template('allproducts.html', products=products, category_filter=category_filter, price_filter=price_filter, rating_filter=rating_filter, pagination=pagination, offset=offset)
 
 
 @products_bp.route("/product-detail/<int:product_id>")
