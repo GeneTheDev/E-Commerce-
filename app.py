@@ -15,7 +15,7 @@ from flask_session import Session
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_bcrypt import Bcrypt
 
-from .extensions import db, bcrypt, login_manager
+from extensions import db, bcrypt, login_manager
 
 
 def create_app():
