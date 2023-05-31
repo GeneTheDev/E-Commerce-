@@ -3,7 +3,7 @@ from flask_login import LoginManager, login_user, logout_user, current_user, log
 from forms import RegisterForm, LoginForm, UpdateAccountForm
 from models import db, Customer, User
 from flask import Flask, Blueprint, render_template, abort, request
-from .. import login_manager
+from app import login_manager
 
 
 auth_bp = Blueprint('auth_bp', __name__,
