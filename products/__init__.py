@@ -1,5 +1,5 @@
 from flask import Flask, Blueprint, render_template, abort, request
-from ..models import Product
+from models import Product
 from flask_paginate import Pagination, get_page_parameter
 
 
