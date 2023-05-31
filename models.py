@@ -3,7 +3,7 @@ from flask import Flask
 from flask_bcrypt import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
-from . import db, bcrypt, login_manager
+from extensions import db, bcrypt, login_manager
 
 
 class User(UserMixin, db.Model):
