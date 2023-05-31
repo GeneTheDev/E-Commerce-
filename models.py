@@ -1,12 +1,9 @@
 
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt, generate_password_hash, check_password_hash
-from flask_login import UserMixin, LoginManager
+from flask_bcrypt import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 
-bcrypt = Bcrypt()
-login_manager = LoginManager()
-db = SQLAlchemy()
+from . import db, bcrypt, login_manager
 
 
 class User(UserMixin, db.Model):
