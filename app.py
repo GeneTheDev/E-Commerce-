@@ -25,7 +25,7 @@ def create_app():
                 static_url_path='/static')
     app.config['SECRET_KEY'] = '<replace with a secret key>'
     app.config['SESSION_TYPE'] = 'filesystem'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'DATA_BASE_URI'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://gene:password@host/webstore_db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_ECHO'] = True
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
