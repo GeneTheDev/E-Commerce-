@@ -1,6 +1,6 @@
 from flask import Flask, Blueprint, render_template, abort, redirect, url_for, session
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
-from ..models import db, CartItem, Cart, Product
+from models import db, CartItem, Cart, Product
 
 cart_bp = Blueprint('cart_bp', __name__,
                     template_folder='templates',
