@@ -39,11 +39,11 @@ def create_app():
     login_manager.login_message_category = 'info'
 
     # Import and register blueprints
-    from .products import products_bp
-    from .auth import auth_bp
-    from .cart import cart_bp
-    from .home import home_bp
-    from .contact import contact_bp
+    from products import products_bp
+    from auth import auth_bp
+    from cart import cart_bp
+    from home import home_bp
+    from contact import contact_bp
     app.register_blueprint(products_bp, url_prefix="/")
     app.register_blueprint(cart_bp, url_prefix="/")
     app.register_blueprint(auth_bp, url_prefix="/")
