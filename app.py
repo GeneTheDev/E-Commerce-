@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, redirect, render_template, url_for, session, flash, abort
 from flask_session import Session
 from flask_debugtoolbar import DebugToolbarExtension
@@ -25,7 +26,8 @@ def create_app():
                 static_url_path='/static')
     app.config['SECRET_KEY'] = '<replace with a secret key>'
     app.config['SESSION_TYPE'] = 'filesystem'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://gene:password@localhost:5432/webstore_db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = (
+        os.environ.get('DATABASE_URL', 'postgresql:///webstore_db'))
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_ECHO'] = True
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
