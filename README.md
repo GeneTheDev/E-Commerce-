@@ -1,6 +1,5 @@
 # E-Commerce-Site
-
-The main goal for this project is to implement a twitter like clone that allows a user to post and like another users tweet. My focus wasn't too much on the design but to demonstrate the functionality of the project.
+A simple e-commerce website that is built with flask  , project is structured using blueprints so that way routes are handled in a seperate dir keeping the code base organized. 
 
 # Project Description
 Features:
