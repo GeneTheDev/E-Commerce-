@@ -13,7 +13,8 @@ Technologies used :
 
 - Python
 - Flask
-- Postgresql (Database)
+- Postgresql
+
 I wanted to use flask as my frame work because of the flexibility and postgres for my relational database.
 
 # In the project directory, you can run:
