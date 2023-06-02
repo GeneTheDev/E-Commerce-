@@ -1,5 +1,5 @@
 # E-Commerce-Site
-A simple e-commerce website that is built with flask  , project is structured using blueprints so that way routes are handled in a seperate dir keeping the code base organized. 
+A simple e-commerce website that is built with flask  , project is structured using blueprints so that way routes are handled in a seperate dir keeping the code base organized and for better readability. 
 
 # Project Description
 Features:
