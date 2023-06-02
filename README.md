@@ -19,16 +19,16 @@ I wanted to use flask as my frame work because of the flexibility and postgres f
 # In the project directory, you can run:
 
 Required dependencies:
-- psycopg2 (make sure you have postgres running)
-- flask 
-- or you can run pip -r requirements.txt to reinstall project dependencies
+- `psycopg2` (make sure you have postgres running)
+- `flask` 
+- or you can run `pip -r requirements.txt` to reinstall project dependencies
 
-~$ pip install flask psycopg2
+~$ `pip install flask psycopg2`
 
-~$ python -m venv /path/to/new/virtual/environment
+~$ `python -m venv /path/to/new/virtual/environment`
 
-~$ source venv/bin/activate
+~$ `source venv/bin/activate`
 
 To start development server:
 
-~$ flask run
+~$ `flask run`
