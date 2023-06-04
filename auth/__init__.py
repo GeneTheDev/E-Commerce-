@@ -3,7 +3,7 @@ from flask_login import LoginManager, login_user, logout_user, current_user, log
 from forms import RegisterForm, LoginForm, UpdateAccountForm
 from models import db, Customer, User
 from flask import Flask, Blueprint, render_template, abort, request
-from app import login_manager
+from flask import current_app as app
 
 
 auth_bp = Blueprint('auth_bp', __name__,
@@ -11,12 +11,10 @@ auth_bp = Blueprint('auth_bp', __name__,
                     static_folder='static')
 
 
-@login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-@login_manager.request_loader
 def load_user_from_request(request):
     # Check if there is a user_id in the request headers
     user_id = request.headers.get('Authorization')

@@ -5,6 +5,7 @@ from email_validator import validate_email, EmailNotValidError
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_session import Session
 from flask import Flask, request, redirect, render_template, url_for, session, flash, abort
+from auth import auth_bp, load_user, load_user_from_request
 import os
 from extensions import db, bcrypt, login_manager
 import sys
@@ -28,6 +29,8 @@ def create_app():
     bcrypt.init_app(app)
     login_manager.init_app(app)
 
+    login_manager.user_loader(load_user)
+    login_manager.request_loader(load_user_from_request)
     login_manager.login_view = 'login'
     login_manager.login_message_category = 'info'
 
