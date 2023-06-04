@@ -17,7 +17,7 @@ body {
     left: 0;
     width: 100%;
     z-index: 1;
-    background: radial-gradient(#fff, #ffd6d6);
+    background: linear-gradient(to bottom, #FFB88C, #DE6262);
 }
 
 nav {
@@ -93,7 +93,7 @@ p {
 }
 
 .header {
-    background: radial-gradient(#fff, #ffd6d6);
+    background: linear-gradient(to bottom, #FFB88C, #DE6262);
 }
 
 .header .row {
@@ -198,7 +198,7 @@ h4 {
 
 /* ---offer--- */
 .offer {
-    background: radial-gradient(#fff, #ffd6d5);
+    background: linear-gradient(to bottom, #FFB88C, #DE6262);
     margin-top: 80px;
     padding: 25px 0;
 }
