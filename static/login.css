@@ -1,91 +1,90 @@
-.my-form {
-    /* Add the following style to center the form and add some spacing at the top */
-    font-family: Arial, sans-serif;
-    color: #333;
-    background-color: #f5f5f5;
-    padding: 20px;
-    margin: 60px auto;
-    width: 50%;
-    text-align: center;
-    border-radius: 5px;
-    margin-top: 10%; /* Add some spacing at the top */
-    margin-bottom: 20%;
+@import url("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
+
+/* Styles related to login form and its container */
+.login-block {
+    background: #DE6262;
+    background: -webkit-linear-gradient(to bottom, #FFB88C, #DE6262);
+    background: linear-gradient(to bottom, #FFB88C, #DE6262);
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(80vh - 90px); /* Add this, assuming your navbar is 60px */
+    width: 100%;
+    padding: 50px 0;
+}
+
+.login-container {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 15px 20px 0px rgba(0,0,0,0.1);
+    position: relative;
+    width: 60%;
+    padding: 15px;
 }
 
 
-.my-form p {
-    /* Style the form fields here */
-    vertical-align: top;
-    margin-right: 10px;
-    margin: 10px 0;
+.login-sec {
+    padding: 50px 30px;
+    position: relative;
 }
 
-.my-form label {
-    /* Style the form labels here */
-    font-weight: bold;
+.login-sec h2 {
+    margin-bottom: 30px;
+    font-weight: 800;
+    font-size: 30px;
+    color: #DE6262;
+}
+
+.login-sec h2:after {
+    content: " ";
+    width: 100px;
+    height: 5px;
+    background: #FEB58A;
     display: block;
-    margin-bottom: 5px;
-}
-
-.my-form input[type="text"],
-.my-form input[type="email"] {
-    /* Style text and email inputs */
-    height: 30px;
-    width: 300px;
-    margin: 0;
-    border: 1px solid #ccc;
-    padding: 5px;
+    margin-top: 20px;
     border-radius: 3px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.my-form button[type="submit"] {
-    /* Style the submit button */
-    background-color: #008CBA;
+.btn-login {
+    background: #DE6262;
     color: #fff;
-    border: none;
-    padding: 10px;
-    border-radius: 3px;
-    cursor: pointer;
+    font-weight: 600;
 }
 
-.my-form p:not(:first-of-type):not(:nth-of-type(2)) {
-    /* Add the following styles to display other form fields on a separate line */
+/* Styles related to the right side banner */
+.banner-sec {
+    background: url(https://static.pexels.com/photos/33972/pexels-photo.jpg) no-repeat left bottom;
+    background-size: cover;
+    min-height: 500px;
+    border-radius: 0 10px 10px 0;
+    padding: 0;
+}
+
+.banner-text {
+    width: 70%;
+    position: absolute;
+    bottom: 40px;
+    padding-left: 20px;
+}
+
+.banner-text h2 {
+    color: #fff;
+    font-weight: 600;
+}
+
+.banner-text h2:after {
+    content: " ";
+    width: 100px;
+    height: 5px;
+    background: #FFF;
     display: block;
-    margin-bottom: 30px; /* You may want to adjust this value based on your design */
+    margin-top: 20px;
+    border-radius: 3px;
 }
 
-@media only screen and (min-width: 1200px) {
-    /* Adjust padding and width for larger screens */
-    .my-form {
-      padding: 100px;
-      width: 50%;
-    }
-  
-    /* Adjust font size for larger screens */
-    .my-form label {
-      font-size: 20px;
-    }
-  
-    /* Adjust height and padding for larger screens */
-    .my-form input[type="text"],
-    .my-form input[type="email"] {
-      height: 50px;
-      padding: 15px;
-    }
-  
-    /* Adjust padding for larger screens */
-    .my-form button[type="submit"] {
-      padding: 20px;
-    }
-  }
-
-/* For screens smaller than 600px, adjust form styles */
-@media screen and (max-width: 600px) {
-    .my-form input[type="text"], 
-    .my-form input[type="email"] {
-      width: 100%;
-    }
-    .my-form label {
-      font-size: 0.8rem;
-    }
-  }
+.banner-text p {
+    color: #fff;
+}

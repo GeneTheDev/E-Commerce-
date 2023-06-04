@@ -20,8 +20,8 @@
     <link rel="stylesheet" href="/static/index.css">
     {% endblock %} 
 </head>
-<body>
 
+<body class="d-flex flex-column min-vh-100" >
   <div class="header">
     <div class="container">
         <div class="navbar">
@@ -48,8 +48,8 @@
     </div>   
 </div>
 {% block content %}BODY CONTENT GOES HERE{% endblock %}
-<div class="footer">
-  <div class="container">
+<div class="footer footer mt-auto">
+  <div class="container clearfix">
       <div class="row">
           <div class="footer-col-1">
               <h3>Download Our App</h3>
