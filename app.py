@@ -17,6 +17,7 @@ def create_app():
     app = Flask(__name__, template_folder='templates',
                 static_url_path='/static')
     app.config['SECRET_KEY'] = 'secret'
+    app.config['WTF_CSRF_SECRET_KEY'] = 'your-secret-key'
     app.config['SESSION_TYPE'] = 'filesystem'
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
         'DATABASE_URL', 'postgresql:///webstore_db')
