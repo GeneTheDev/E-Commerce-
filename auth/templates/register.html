@@ -13,24 +13,35 @@
 </head>
 <body>
     {% block content %} 
-        <form id="register-user" class="my-form"  method="POST">
-            <h2>Register Your Account</h2>
-            {{ form.hidden_tag() }}
-            {% for field in form
-                if field.widget.input_type != 'hidden' %}
-
-                <p>
-                    {{ field.label }}
-                    {{ field }}
-
-                    {% for error in field.errors %}
-                        {{error}}
-                    {% endfor %}
-                </p>
-            {% endfor %}
-
-            <button type="submit">Register</button>
-        </form>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-xl-9 mx-auto">
+                    <div class="card card-signin flex-row my-5">
+                        <div class="card-img-left d-none d-md-flex">
+                        <!-- Background image for card set in CSS! -->
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Register Your Account</h5>
+                            <form class="form-signin" id="register-user" method="POST">
+                                {{ form.hidden_tag() }}
+                                {% for field in form if field.widget.input_type != 'hidden' %}
+                                <div class="form-floating mb-3">
+                                    {{ field(class="form-control", id=field.id) }}
+                                    {{ field.label(class="form-label", for=field.id) }}
+                                    {% for error in field.errors %}
+                                        <div class="invalid-feedback">
+                                            {{ error }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                {% endfor %}
+                                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     {% endblock %}
 </body>
 </html>
