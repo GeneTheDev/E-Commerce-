@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms.validators import Email
-from wtforms import StringField, BooleanField, PasswordField, EmailField, validators
+from wtforms import StringField, BooleanField, PasswordField, EmailField, validators, SubmitField, TextAreaField, SelectField
 
 
 class RegisterForm(FlaskForm):
@@ -44,3 +44,13 @@ class UpdateAccountForm(FlaskForm):
 
     password = PasswordField("Password",
                              validators=[validators.DataRequired()])
+
+
+class ContactForm(FlaskForm):
+    name = StringField("Name")
+    email = StringField("Email")
+    phone = StringField("Phone")
+    reason = SelectField('Reason for Contact', choices=[('default', 'Select the reason for contact'), (
+        'suggestion', 'Suggestion'), ('complaint', 'Complaint'), ('question', 'Question')])
+    description = TextAreaField("Describe the reason for contact..")
+    submit = SubmitField('Submit')
