@@ -17,7 +17,8 @@ body {
     left: 0;
     width: 100%;
     z-index: 1;
-    background: radial-gradient(#fff, #ffd6d6);
+    background: -webkit-linear-gradient(to bottom, #FFB88C, #DE6262);
+    background: linear-gradient(to bottom, #FFB88C, #DE6262);
 }
 
 nav {
