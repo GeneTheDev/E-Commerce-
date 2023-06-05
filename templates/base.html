@@ -25,24 +25,24 @@
   <div class="header">
         <div class="navbar">
             <div class="logo">
-                <img src="static/images/logo.png" width="125px">
+                <img src="/static/images/logo.png" width="125px">
             </div>
             <nav>
                 <ul id="MenuItems">
                     <li><a href="/">Home</a></li>
-                    <li><a href="allproducts">Products</a></li>
-                    <li><a href="contact">Contact</a></li>
+                    <li><a href="/allproducts">Products</a></li>
+                    <li><a href="/contact">Contact</a></li>
                     {% if 'user_id' in session %}                        
-                        <li><a href="account">Account</a></li>
-                        <li><a href="logout">Logout</a></li>
+                        <li><a href="/account">Account</a></li>
+                        <li><a href="/logout">Logout</a></li>
                     {% else %}
-                        <li><a href="login">Login</a></li>
-                        <li><a href="register">Register</a></li>
+                        <li><a href="/login">Login</a></li>
+                        <li><a href="/register">Register</a></li>
                     {% endif %}
                 </ul>
             </nav>
-            <a href="cart"><img src="static/images/cart.png" class="cart" width="30px" height="30px"></a>
-            <img src="static/images/menu.png" class="menu-icon" onclick="menuToggle()">
+            <a href="/cart"><img src="/static/images/cart.png" class="cart" width="30px" height="30px"></a>
+            <img src="/static/images/menu.png" class="menu-icon" onclick="menuToggle()">
         </div>
 </div>
 {% block content %}BODY CONTENT GOES HERE{% endblock %}
