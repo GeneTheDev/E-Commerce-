@@ -1,21 +1,17 @@
-/* Util */
-html, body {
-    min-height: 100vh;
-  }
-  
-  body {
+/* Contact form styles */
+
+.contact-form {
     display: flex;
+    min-height: 70vh;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     background-image: url('https://rafaeltemoteo.com.br/wp-content/uploads/2018/11/contact-background.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-size: contain;
     background-position: center;
   }
   
-  /* Main content */
-  .content {
+  .contact-form .content {
     display: flex;
     background-color: rgba(255,255,255,0.3);
     width: 75%;
@@ -23,19 +19,19 @@ html, body {
     margin: 1rem auto 1rem auto;
   }
   
-  /* Left side */
-  .left-side {
+  /* Left side styles */
+  
+  .contact-form .left-side {
     width: 50%;
   }
   
-  /* Title */
-  .title {
+  .contact-form .title {
     display: flex;
     justify-content: center;
     margin: 0.25rem;
   }
   
-  .title h3 {
+  .contact-form .title h3 {
     font-family: 'Poppins', sans-serif;
     font-size: 2.5rem;
     color: white;
@@ -45,23 +41,23 @@ html, body {
     user-select: none;
   }
   
-  .icons {
+  .contact-form .icons {
     color: white;
     display: flex;
     flex-direction: column;
   }
   
-  .icon-space {
+  .contact-form .icon-space {
     display: block;
     margin: 2rem;
   }
   
-  .icon {
+  .contact-form .icon {
     margin: 0 53% 0 47%;
     font-size: 2.5rem;
   }
   
-  .text {
+  .contact-form .text {
     text-align: center;
     margin: 0 0.25rem 0 0.25rem;
     width: 100%;
@@ -72,64 +68,65 @@ html, body {
     align-items: center;
   }
   
-  .fa-solid {
+  .contact-form .fa-solid {
     margin: 0 0 0.75rem 0;
     font-size: 2.5rem;
   }
   
-  /* Right side */
-  .right-side {
+  /* Right side styles */
+  
+  .contact-form .right-side {
     display: flex;
     flex-direction: column;
     width: 50%;
   }
   
-  .right-side .title {
+  .contact-form .right-side .title {
     display: none;
   }
   
-  form {
+  .contact-form form {
     height: 100%;
     display: flex;
     flex-direction: column;
   }
   
-  .field {
+  .contact-form .field {
     display: flex;
     flex-direction: column;
     color: white;
   }
   
-  .field label, .field input, .field select, .field textarea {
+  .contact-form .field label, .field input, .field select, .field textarea {
     margin: 0.25rem;
   }
   
-  .field textarea {
+  .contact-form .field textarea {
     resize: none;
     overflow: auto;
     height: 100%;
   }
   
-  .form-select {
+  .contact-form .form-select {
     width: initial;
   }
   
-  .submit {
+  .contact-form .submit {
     display: flex;
     justify-content: center;
     align-items:center;
   }
   
-  .submit button {
+  .contact-form .submit button {
     margin: 0.25rem;
   }
   
-  .btn,.btn-primary {
+  .contact-form .btn,.btn-primary {
     background-color: darkslategrey;
     border-color: white;
   }
   
-  .submit button:focus,
+  .contact-form .submit button:focus,
   .submit button:active,
   .submit button:hover{
     background-color: darkslategrey;
@@ -137,29 +134,29 @@ html, body {
     filter: brightness(90%);
   }
   
-  /* Create media query for max-width 582px */
+  /* Responsive styles */
   
   @media (max-width: 582px){
-    .left-side .title {
+    .contact-form .left-side .title {
       display: none;
     }
-    .right-side .title {
+    .contact-form .right-side .title {
       display: flex;
     }
-    .content {
+    .contact-form .content {
       flex-direction: column-reverse;
     }
-    .right-side, .left-side {
+    .contact-form .right-side, .left-side {
       width: 100%;
     }
     
-    .field textarea {
+    .contact-form .field textarea {
       height: 10rem;
     }
   }
   
   @media (max-width: 314px){
-    .title h3 {
+    .contact-form .title h3 {
       font-size: 2rem;
     }
   }
