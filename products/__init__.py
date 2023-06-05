@@ -8,10 +8,10 @@ products_bp = Blueprint('products', __name__,
                         static_folder='static')
 
 
-@products_bp.route("/products")
+@products_bp.route("/product")
 def product_page():
     """Product page"""
-    return render_template("products.html")
+    return render_template("product.html")
 
 
 @products_bp.route("/allproducts")
