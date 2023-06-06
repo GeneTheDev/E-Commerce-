@@ -48,14 +48,13 @@
           <p>{{product.description}}</p>
         </div>
         <form action="{{ url_for('cart_bp.add_to_cart', code=product.code) }}" method="POST">
+          <input type="hidden" name="product_code" value="{{ product.code }}">
           <div class="amount">
-            <a href="#" class="fa fa-minus"></a>
-            <input type="hidden" name="product_code" value="{{ product.code }}">
-            <span>Qty.<input type="number" name="quantity" value="1" min="1"></span>
-            <a href="#" class="fa fa-plus"></a>
+              <span>Qty.<input type="number" name="quantity" value="1" min="1"></span>
           </div>
           <button type="submit" class="add-to-cart">Add To Cart</button>
-        </form>
+      </form>   
+      
       </div>
     </div>
     <div class="grid related-products">
