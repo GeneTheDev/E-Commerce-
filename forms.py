@@ -54,3 +54,8 @@ class ContactForm(FlaskForm):
         'suggestion', 'Suggestion'), ('complaint', 'Complaint'), ('question', 'Question')])
     description = TextAreaField("Describe the reason for contact..")
     submit = SubmitField('Submit')
+
+
+class AddToCartForm(FlaskForm):
+    quantity = StringField('Quantity')
+    submit = SubmitField('Add To Cart')
