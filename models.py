@@ -189,9 +189,14 @@ class Product(db.Model):
                              back_populates='product')
 
     def related_products(self):
-        related_product_ids = [pc.product_id for pc in ProductCategory.query.filter_by(
-            category_id=self.category_id).all()]
-        return Product.query.filter(Product.id.in_(related_product_ids)).limit(3).all()
+        # get all categories associated with the current product
+        product_categories = [pc.category_id for pc in self.categories]
+
+        # get all products associated with these categories
+        related_product_ids = [pc.product_id for pc in ProductCategory.query.filter(
+            ProductCategory.category_id.in_(product_categories)).all()]
+
+        return Product.query.filter(Product.id.in_(related_product_ids), Product.id != self.id).limit(3).all()
 
 
 class Category(db.Model):
