@@ -47,10 +47,11 @@
           <h4>Description :</h4>
           <p>{{product.description}}</p>
         </div>
-        <form action="">
+        <form action="{{ url_for('cart_bp.add_to_cart', code=product.code) }}" method="POST">
           <div class="amount">
             <a href="#" class="fa fa-minus"></a>
-            <span>Qty.<input type="number" value="1" min="1"></span>
+            <input type="hidden" name="product_code" value="{{ product.code }}">
+            <span>Qty.<input type="number" name="quantity" value="1" min="1"></span>
             <a href="#" class="fa fa-plus"></a>
           </div>
           <button type="submit" class="add-to-cart">Add To Cart</button>
