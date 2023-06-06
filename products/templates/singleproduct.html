@@ -21,8 +21,7 @@
       <div class="column-xs-12">
         <nav>
           <ol class="breadcrumb-list">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Household Plants</a></li>
+            <li class="breadcrumb-item"><a href="/allproducts">Products</a></li>
             <li class="breadcrumb-item active">{{product.name}}</li>
           </ol>
         </nav>
@@ -45,10 +44,15 @@
         <h1>{{product.name}}</h1>
         <h2>${{product.price}}</h2>
         <div class="description">
+          <h4>Description :</h4>
           <p>{{product.description}}</p>
         </div>
         <form action="">
-          <input type="number" value="1" min="1">
+          <div class="amount">
+            <a href="#" class="fa fa-minus"></a>
+            <span>Qty.<input type="number" value="1" min="1"></span>
+            <a href="#" class="fa fa-plus"></a>
+          </div>
           <button type="submit" class="add-to-cart">Add To Cart</button>
         </form>
       </div>
