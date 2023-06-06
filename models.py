@@ -188,6 +188,11 @@ class Product(db.Model):
     orders = db.relationship('OrderProduct',
                              back_populates='product')
 
+    def related_products(self):
+        related_product_ids = [pc.product_id for pc in ProductCategory.query.filter_by(
+            category_id=self.category_id).all()]
+        return Product.query.filter(Product.id.in_(related_product_ids)).limit(3).all()
+
 
 class Category(db.Model):
 
