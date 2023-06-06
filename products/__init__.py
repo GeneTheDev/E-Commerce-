@@ -58,6 +58,7 @@ def all_products():
 def product_detail(product_id):
     """Product page"""
     product = Product.query.get(product_id)
+    related_products = product.related_products()
     if not product:
         abort(404)
-    return render_template("/singleproduct.html", product=product)
+    return render_template("/singleproduct.html", product=product, related_products=related_products)
