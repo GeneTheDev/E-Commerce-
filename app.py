@@ -1,15 +1,11 @@
 import psycopg2.extras
 import psycopg2
-from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from email_validator import validate_email, EmailNotValidError
-from flask_debugtoolbar import DebugToolbarExtension
 from flask_session import Session
-from flask import Flask, request, redirect, render_template, url_for, session, flash, abort
-from auth import auth_bp, load_user, load_user_from_request
+from flask import Flask
+from auth import load_user, load_user_from_request
 import os
 from extensions import db, bcrypt, login_manager
-import sys
-sys.path.insert(0, "/home/gene/web_store/")
 
 
 def create_app():

@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, render_template, abort, redirect, url_for, session
+from flask import request, Blueprint, render_template, abort, redirect, url_for, session
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from models import db, CartItem, Cart, Product
 
@@ -31,6 +31,9 @@ def view_cart():
 
 @cart_bp.route('/add_to_cart/<string:code>', methods=['POST'])
 def add_to_cart(code):
+    product_code = request.form.get('product_code')
+    quantity = request.form.get('quantity')
+
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
 
