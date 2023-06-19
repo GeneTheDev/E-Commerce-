@@ -38,7 +38,7 @@ def register():
         address = form.address.data
 
         user = Customer(name=name, username=username, email=email,
-                        password_hash=password, address=address)
+                        password=password, address=address)
 
         db.session.add(user)
         db.session.commit()
