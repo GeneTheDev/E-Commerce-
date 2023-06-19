@@ -29,28 +29,30 @@ def view_cart():
 # Add Items to shopping cart
 
 
-@cart_bp.route('/add_to_cart/<string:code>', methods=['POST'])
-def add_to_cart(code):
-    product_code = request.form.get('product_code')
+@cart_bp.route('/add_to_cart', methods=['POST'])
+def add_to_cart():
+    product_code = request.form.get('code')
     quantity = request.form.get('quantity')
 
     if not current_user.is_authenticated:
-        return redirect(url_for('login'))
+        return redirect(url_for('auth_bp.login'))
 
-    product = Product.query.filter_by(code=code).first()
+    product = Product.query.filter_by(code=product_code).first()
     if product:
         cart_item = CartItem.query.filter_by(
             user_id=current_user.id, product_id=product.id).first()
         if not cart_item:
             cart_item = CartItem(user_id=current_user.id,
-                                 product_id=product.id)
+                                 product_id=product.id,
+                                 quantity=quantity)  # Added quantity here
             db.session.add(cart_item)
         else:
-            cart_item.quantity += 1
+            cart_item.quantity += int(quantity)  # Added quantity update here
         db.session.commit()
-        return redirect(url_for('shopping_cart'))
+        return redirect(url_for('cart_bp.view_cart'))
     else:
         abort(404)
+
 
 # Empty the entire cart
 
