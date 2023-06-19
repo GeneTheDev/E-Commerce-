@@ -16,7 +16,7 @@ def create_app():
     app.config['WTF_CSRF_SECRET_KEY'] = 'your-secret-key'
     app.config['SESSION_TYPE'] = 'filesystem'
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-        'ELEPHANTSQL_URI', 'postgres:///webstore_db')
+        'ELEPHANTSQL_URI', 'postgresql:///webstore_db')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_ECHO'] = True
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
